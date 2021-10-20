@@ -4,3 +4,6 @@ serverless/.serverless
 terraform/.terraform
 *.backup
 *.lock.info
+
+# ignore sam generated files
+.aws-sam/
