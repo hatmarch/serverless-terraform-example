@@ -39,9 +39,11 @@
 	"initializeCommand": "./.devcontainer/workspace-setup/workspace-initialize.sh ${env:AWS_CREDENTIAL_TYPE} ${localWorkspaceFolder} ${containerWorkspaceFolder}",
 	// Comment out the next line to run as root instead. Linux users, 
 	// update Dockerfile with your user's UID/GID if not 1000.
+	"workspaceFolder": "${localWorkspaceFolder}",
 	"runArgs": [ 
 		"-v", "/var/run/docker.sock.raw:/var/run/docker.sock",
 		"-v", "${env:HOME}/.aws:/home/vscode/.aws",
+		"-v", "${localWorkspaceFolder}:${localWorkspaceFolder}",
 		"-u", "vscode",
 		// use local .oh-my-zsh configuration if it exists (overwriting one in container).
 		// uncomment the following line out if you want to use local installation on host
