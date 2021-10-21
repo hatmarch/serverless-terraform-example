@@ -3,7 +3,7 @@
 # Licensed under the MIT License. See https://go.microsoft.com/fwlink/?linkid=2090316 for license information.
 #-------------------------------------------------------------------------------------------------------------
 
-FROM python:3
+FROM python:3.9
 
 # Avoid warnings by switching to noninteractive
 ENV DEBIAN_FRONTEND=noninteractive
@@ -18,7 +18,8 @@ RUN apt-get update \
     && apt-get -y install --no-install-recommends apt-utils dialog 2>&1 \
     #
     # Verify git, process tools, lsb-release (common in install instructions for CLIs) installed
-    && apt-get -y install git less jq procps lsb-release rsync zsh zplug apt-transport-https ca-certificates curl gnupg python3-pip \
+    # groff installed for supporting awscli help pages
+    && apt-get -y install git less groff jq procps lsb-release rsync zsh zplug apt-transport-https ca-certificates curl gnupg python3-pip \
     #
     # Install pylint
     && pip --disable-pip-version-check --no-cache-dir install pylint ipykernel docker-compose \
@@ -84,7 +85,7 @@ RUN curl -L "https://github.com/aws/aws-sam-cli/releases/latest/download/aws-sam
 
 USER vscode
 
-RUN /usr/local/bin/python -m pip install -U pytest --user && \
+RUN /usr/local/bin/python3 -m pip install -U pytest chalice --user && \
     sh -c "$(wget https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh -O -)"
 
 COPY --chown=vscode workspace-setup/zshrc.template /home/vscode/.zshrc
